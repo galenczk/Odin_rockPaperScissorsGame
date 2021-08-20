@@ -3,47 +3,10 @@
 // Compare the computer's and player's choices and call the game.
 
 
-let playerChoice = "Rock";
-let computerChoice = "";
 
-function computerPlay(){
-    let randomNumber = Math.floor(Math.random()*3);
-    
-    if(randomNumber === 0){
-        computerChoice = "Rock";
-    }else if (randomNumber === 1){
-        computerChoice = "Paper";
-    }else {
-        computerChoice = "Scissors";
-    }
-}
-computerPlay();
+// Need to make playerChoice case-insensitive.
 
-
-function playGame(playerChoice, computerChoice){
-    if (playerChoice === computerChoice){
-        console.log("This round was a tie!");
-    }else if(playerChoice === "Rock"){
-        if (computerChoice === "Scissors"){
-            console.log("You won this round!")
-        }else{
-            console.log("The computer won this round.")
-        }
-    }else if (playerChoice ==="Paper"){
-        if (computerChoice ==="Rock"){
-            console.log("You won this round!")
-        }else{
-            console.log("The computer won this round.")
-        }
-    }else{
-    if (computerChoice ==="Paper"){
-        console.log("You won this round!")
-    }else{
-        console.log("The computer won this round.")
-    }
-}
-}
-
-console.log(`The player chose ${playerChoice}`);
-console.log(`The computer chose ${computerChoice}`);
-playGame(playerChoice, computerChoice);
+// Creating a game function that plays 5 rounds and records the score.
+// Create a while loop that runs through 5 rounds
+// Create counters for playerScore and computerScore
+// Recognize a win for either party from the return of playRound()
