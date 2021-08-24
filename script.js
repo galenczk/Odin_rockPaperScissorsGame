@@ -84,11 +84,12 @@ function play5Rounds(){
     }
 
     // Reads the score.
-    return `The computer has scored ${computerScore}.  You have scored ${playerScore}.`
+    if (playerScore > computerScore){
+        return `The computer has scored ${computerScore}.  You have scored ${playerScore}.  You have won this game!!!`
+    } else if (computerScore > playerScore){
+        return `The computer has scored ${computerScore}.  You have scored ${playerScore}.  The computer has won this game.`
+    }
+
 }
 
 console.log(play5Rounds());
-// Creating a game function that plays 5 rounds and returns the score.
-// Create a while loop that runs through 5 rounds
-// Create counters for playerScore and computerScore
-// Recognize a win for either party from the return of playRound()
