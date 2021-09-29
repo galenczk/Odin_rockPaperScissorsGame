@@ -16,7 +16,10 @@ function getComputerChoice() {
 function playRound(playerChoice, computerChoice) {
   playerChoice = playerChoice.toLowerCase(); // Makes the player choice case-insensitive.
   computerChoice = getComputerChoice();
-  console.log(`The player has chosen ${playerChoice}.`);
+  choicesReport.textContent = [
+    `The player has chosen ${playerChoice}.
+The computer has chosen ${computerChoice}.`,
+  ];
 
   // Notifies if the player chooses something that doesn't make sense in the game.
   if (
@@ -76,4 +79,7 @@ scissorsBtn.addEventListener("click", function () {
 //Create a div for reporting results of rounds.
 const resultDiv = document.createElement("div");
 body.appendChild(resultDiv);
-resultDiv.style.border = "2px solid black";
+
+const choicesReport = document.createElement("p");
+resultDiv.appendChild(choicesReport);
+choicesReport.style.whiteSpace = "pre";
