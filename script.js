@@ -27,25 +27,24 @@ The computer has chosen ${computerChoice}.`,
     playerChoice !== "paper" &&
     playerChoice !== "scissors"
   ) {
-    return "Your choice is complete nonsense.  You forfeit this round!";
+    return (roundResult.textContent =
+      "Your choice is complete nonsense.  You forfeit this round!");
   }
-
-  console.log(`The computer has chosen ${computerChoice}.`);
 
   // Compares the two choices and notifies of a winner, or a tie.
   if (playerChoice === computerChoice) {
-    return "This round was a tie.";
+    return (roundResult.textContent = "This round was a tie.");
   } else if (playerChoice === "rock") {
     if (computerChoice === "scissors") {
-      return "You have won this round!";
+      return (roundResult.textContent = "You have won this round!");
     } else {
-      return "The computer has won this round.";
+      return (roundResult.textContent = "The computer has won this round.");
     }
   } else if (playerChoice === "paper") {
     if (computerChoice === "rock") {
-      return "You have won this round!";
+      return (roundResult.textContent = "You have won this round!");
     } else {
-      return "The computer has won this round.";
+      return (roundResult.textContent = "The computer has won this round.");
     }
   }
 }
@@ -82,4 +81,17 @@ body.appendChild(resultDiv);
 
 const choicesReport = document.createElement("p");
 resultDiv.appendChild(choicesReport);
-choicesReport.style.whiteSpace = "pre";
+
+choicesReport.style.whiteSpace = "pre"; //whitespace = "pre" allows whitespace to be represented in the template literal
+
+const roundResult = document.createElement("p");
+resultDiv.appendChild(roundResult);
+
+//Create a scoreboard, and call a winner after one reaches five points.
+const scoreDiv = document.createElement("div");
+body.appendChild(scoreDiv);
+
+const playerScore = document.createElement("p");
+const computerScore = document.createElement("p");
+scoreDiv.append(playerScore);
+scoreDiv.append(computerScore);
