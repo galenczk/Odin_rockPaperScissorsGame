@@ -1,5 +1,9 @@
 let computerChoice = "";
 
+//Create a score counter for the player and computer scores.
+let playerScoreCount = 0;
+let computerScoreCount = 0;
+
 // Creates a random computer choice to play.
 function getComputerChoice() {
   let randomNumber = Math.floor(Math.random() * 3);
@@ -14,37 +18,31 @@ function getComputerChoice() {
 
 // Takes in player and computer choices and returns a winner, or a tie.
 function playRound(playerChoice, computerChoice) {
-  playerChoice = playerChoice.toLowerCase(); // Makes the player choice case-insensitive.
   computerChoice = getComputerChoice();
+
+  if (winnerAnnounce) {
+    winnerAnnounce.textContent = "";
+  }
+
   choicesReport.textContent = [
-    `The player has chosen ${playerChoice}.
+    `You have chosen ${playerChoice}.
 The computer has chosen ${computerChoice}.`,
   ];
 
-  // Notifies if the player chooses something that doesn't make sense in the game.
-  if (
-    playerChoice !== "rock" &&
-    playerChoice !== "paper" &&
-    playerChoice !== "scissors"
-  ) {
-    return (roundResult.textContent =
-      "Your choice is complete nonsense.  You forfeit this round!");
-  }
-
   // Compares the two choices and notifies of a winner, or a tie.
   if (playerChoice === computerChoice) {
-    return (roundResult.textContent = "This round was a tie.");
+    return 2;
   } else if (playerChoice === "rock") {
     if (computerChoice === "scissors") {
-      return (roundResult.textContent = "You have won this round!");
+      return 1;
     } else {
-      return (roundResult.textContent = "The computer has won this round.");
+      return 0;
     }
   } else if (playerChoice === "paper") {
     if (computerChoice === "rock") {
-      return (roundResult.textContent = "You have won this round!");
+      return 1;
     } else {
-      return (roundResult.textContent = "The computer has won this round.");
+      return 0;
     }
   }
 }
@@ -67,12 +65,39 @@ scissorsBtn.textContent = "Scissors";
 //Calls the function playRound on buttonclick with correct playerChoice.
 rockBtn.addEventListener("click", function () {
   playRound("rock", computerChoice);
+  if (playRound("rock", computerChoice) === 0) {
+    roundResult.textContent = "The computer has won this round.";
+    countScore(0);
+  } else if (playRound("rock", computerChoice) === 1) {
+    roundResult.textContent = "You have won this round!";
+    countScore(1);
+  } else {
+    roundResult.textContent = "This round was a tie.";
+  }
 });
 paperBtn.addEventListener("click", function () {
   playRound("paper", computerChoice);
+  if (playRound("paper", computerChoice) === 0) {
+    roundResult.textContent = "The computer has won this round.";
+    countScore(0);
+  } else if (playRound("paper", computerChoice) === 1) {
+    roundResult.textContent = "You have won this round!";
+    countScore(1);
+  } else {
+    roundResult.textContent = "This round was a tie.";
+  }
 });
 scissorsBtn.addEventListener("click", function () {
   playRound("scissors", computerChoice);
+  if (playRound("scissors", computerChoice) === 0) {
+    roundResult.textContent = "The computer has won this round.";
+    countScore(0);
+  } else if (playRound("scissors", computerChoice) === 1) {
+    roundResult.textContent = "You have won this round!";
+    countScore(1);
+  } else {
+    roundResult.textContent = "This round was a tie.";
+  }
 });
 
 //Create a div for reporting results of rounds.
@@ -91,7 +116,35 @@ resultDiv.appendChild(roundResult);
 const scoreDiv = document.createElement("div");
 body.appendChild(scoreDiv);
 
-const playerScore = document.createElement("p");
-const computerScore = document.createElement("p");
-scoreDiv.append(playerScore);
-scoreDiv.append(computerScore);
+const playerScoreDisp = document.createElement("p");
+const computerScoreDisp = document.createElement("p");
+scoreDiv.appendChild(playerScoreDisp);
+scoreDiv.append(computerScoreDisp);
+
+const winnerAnnounce = document.createElement("p");
+scoreDiv.appendChild(winnerAnnounce);
+
+//Create a counter function for scores.
+function countScore(result) {
+  if (result === 1) {
+    playerScoreCount++;
+    playerScoreDisp.textContent = `Your score is ${playerScoreCount}`;
+  } else if (result === 0) {
+    computerScoreCount++;
+    playerScoreDisp.textContent = `Your score is ${playerScoreCount}`;
+    computerScoreDisp.textContent = `The computer's score is ${computerScoreCount}`;
+  }
+  if (playerScoreCount === 5) {
+    winnerAnnounce.textContent = "You have won the game!!!";
+    playerScoreCount = 0;
+    computerScoreCount = 0;
+    playerScoreDisp.textContent = `Your score is ${playerScoreCount}`;
+    computerScoreDisp.textContent = `The computer's score is ${computerScoreCount}`;
+  } else if (computerScoreCount === 5) {
+    winnerAnnounce.textContent = "The computer has won the game.";
+    playerScoreCount = 0;
+    computerScoreCount = 0;
+    playerScoreDisp.textContent = `Your score is ${playerScoreCount}`;
+    computerScoreDisp.textContent = `The computer's score is ${computerScoreCount}`;
+  }
+}
